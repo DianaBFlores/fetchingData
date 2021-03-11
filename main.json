@@ -1,0 +1,92 @@
+
+// Fetch is the retrieving of data by a software program, script, or hardware device. After being retrieved, the data is moved to an alternate location or represented on a device’s screen.
+
+
+// In order to fetch data from resources, you use GET. This allows for you not to have to create new data that already exists in an outside resource. 
+
+// A server MUST support fetching relationship data for every linked resource. Best practice would be to think of relationships as key value pairs. It could be displayed as “Key: Key Value” or “Author: Author of this article”. 
+
+// The endpoint also may support an include request parameter to allow the client to customize which related resources should be returned. If this can not be done, it with respond with a 400 error.
+
+
+// A client may request that an endpoint return only specific fields in the response on a per-type basis by including a fields[TYPE] parameter that must be comma-separated. 
+// If a client requests specific set of fields for a response, an endpoint can’t include additional fields from the resource of that type in its response
+
+// sorting 
+// A server may support a request to sort resources collections according to one or more criterias (“sort fields”) and allows you to order the results by any field, in ascending or descending order. If the server does not support the sorting in the query it must return the error code 400 Bad Report.
+
+// Pagination is the arrangement of numbers assigned to pages within a book. A server can limit the amount of data retrieved in a response to a subset (“page”) of the entire set available.
+
+
+// Basic filtering allows selecting resources by matching one or more members of the resource to values passed as query parameters.
+
+
+
+// //  fetching data
+// GET /articles HTTP/1.1
+// Accept: application/vnd.api+json
+
+// HTTP/1.1 200 OK
+// Content-Type: application/vnd.api+json
+
+// {
+//   "links": {
+//     "self": "http://example.com/articles"
+//   },
+//   "data": [{
+//     "type": "articles",
+//     "id": "1",
+//     "attributes": {
+//       "title": "JSON:API paints my bikeshed!"
+//     }
+//   }, {
+//     "type": "articles",
+//     "id": "2",
+//     "attributes": {
+//       "title": "Rails is Omakase"
+//     }
+//   }]
+// }
+
+// HTTP/1.1 200 OK
+// Content-Type: application/vnd.api+json
+
+// {
+//   "links": {
+//     "self": "http://example.com/articles"
+//   },
+//   "data": []
+// }
+
+
+// GET /articles/1/relationships/comments HTTP/1.1
+// Accept: application/vnd.api+json
+
+// GET /articles/1?include=comments HTTP/1.1
+// Accept: application/vnd.api+json
+
+// // sorting 
+// GET /articles?sort=-created,title HTTP/1.1
+// Accept: application/vnd.api+json
+
+// // pagination
+
+// POST /photos HTTP/1.1
+// Content-Type: application/vnd.api+json
+// Accept: application/vnd.api+json
+
+// {
+//   "data": {
+//     "type": "photos",
+//     "attributes": {
+//       "title": "Ember Hamster",
+//       "src": "http://example.com/images/productivity.png"
+//     },
+//     "relationships": {
+//       "photographer": {
+//         "data": { "type": "people", "id": "9" }
+//       }
+//     }
+//   }
+// }
+// If a relations
